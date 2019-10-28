@@ -5,10 +5,12 @@ public class TextCellViewModel:CellViewModel{
     
     public let text:Observable<String?>
     public let subtitle:Observable<String?>
+    public let backgroundColor:Observable<UIColor>
     
     public init(text:String?, subtitle:String? = nil, leadingSwipeActions:UISwipeActionsConfiguration? = nil, trailingSwipeActions:UISwipeActionsConfiguration? = nil){
         self.text = Observable(text)
         self.subtitle = Observable(subtitle)
+        self.backgroundColor = Observable(.white)
         super.init()
         
         self.leadingSwipeActions = leadingSwipeActions
@@ -33,6 +35,10 @@ public class TextCell:TableViewCell{
             
             vm.subtitle.observe { [weak self] (subtitle) in
                 self?.detailTextLabel?.text = subtitle
+            }.disposed(by: boundDisposeBag)
+            
+            vm.backgroundColor.observe { [weak self](backgroundColor) in
+                self?.backgroundColor = backgroundColor
             }.disposed(by: boundDisposeBag)
         }
     }
