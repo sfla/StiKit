@@ -5,8 +5,8 @@ open class CellViewModel:ViewModel{
     public static var reuseIdentifier:String {get{ return "\(String(describing: self).replacingOccurrences(of: "ViewModel", with: ""))Identifier"}}
     public var reuseIdentifier:String { get { return type(of: self).reuseIdentifier } }
     
-    public var leadingSwipeActions:  UISwipeActionsConfiguration? = nil
-    public var trailingSwipeActions: UISwipeActionsConfiguration? = nil
+    open var leadingSwipeActions:  UISwipeActionsConfiguration? = nil
+    open var trailingSwipeActions: UISwipeActionsConfiguration? = nil
 }
 
 
