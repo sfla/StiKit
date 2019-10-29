@@ -14,7 +14,7 @@ open class CellViewModel:ViewModel{
 open class TableViewCell:UITableViewCell, BindableView{
     public var boundDisposeBag: DisposeBag!
     
-    public func bind(viewModel: ViewModel) {
+    open func bind(viewModel: ViewModel) {
         fatalError("Override bind:ViewModel in \(type(of: self))")
     }
 }
