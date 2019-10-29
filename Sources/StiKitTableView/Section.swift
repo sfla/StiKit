@@ -1,11 +1,11 @@
 import Foundation
 
-public class Section{
+open class Section{
     
-    public var headerViewModel:HeaderViewModel
-    public var viewModels:[CellViewModel]
-    public var footerViewModel:HeaderViewModel
-    public var selectedAction:((Section, Int)->())?
+    open var headerViewModel:HeaderViewModel
+    open var viewModels:[CellViewModel]
+    open var footerViewModel:HeaderViewModel
+    open var selectedAction:((Section, Int)->())?
     
     public init(headerViewModel:HeaderViewModel = SpaceHeader(20), viewModels:[CellViewModel], footerViewModel:HeaderViewModel = SpaceHeader(0), selectedAction:((Section, Int)->())? = nil){
         self.headerViewModel = headerViewModel

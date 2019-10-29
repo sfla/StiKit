@@ -1,7 +1,7 @@
 import Foundation
 import StiKitUtilities
 
-public class ViewModel{}
+open class ViewModel{}
 
 public protocol BindableView{
     func bind(viewModel:ViewModel)

@@ -1,10 +1,10 @@
 import UIKit
 import StiKitUtilities
 
-public class HeaderViewModel:CellViewModel{}
+open class HeaderViewModel:CellViewModel{}
 
 //Special class, does not dequeue or instantiate a UIView. Custom logic in delegate.
-public class SpaceHeader:HeaderViewModel{
+open class SpaceHeader:HeaderViewModel{
     public let space:CGFloat
     public init(_ space:CGFloat){
         self.space = space
@@ -12,7 +12,7 @@ public class SpaceHeader:HeaderViewModel{
     }
 }
 
-public class TableViewHeaderFooterView: UITableViewHeaderFooterView, BindableView {
+open class TableViewHeaderFooterView: UITableViewHeaderFooterView, BindableView {
     
     public var boundDisposeBag: DisposeBag!
     

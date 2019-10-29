@@ -1,7 +1,7 @@
 import UIKit
 import StiKitUtilities
 
-public class TextCellViewModel:CellViewModel{
+open class TextCellViewModel:CellViewModel{
     
     public let text:Observable<String?>
     public let subtitle:Observable<String?>

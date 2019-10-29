@@ -2,19 +2,19 @@ import UIKit
 import StiKitExtensions
 import StiKitUtilities
 
-public class TableView: UITableView {
+open class TableView: UITableView {
     
     fileprivate var registeredIdentifiers:Set<String> = []
     fileprivate var registeredHeaderFooterIdentifiers:Set<String> = []
     
-    private(set) var sections:[Section] = []
+    open private(set) var sections:[Section] = []
     
     private let log = Logger("TableView")
     
-    public var allowSimultaneousGestures:Bool = false
-    public var hiddenSeparators:Bool = false
-    public var preferredSeparatorColor:UIColor = UIColor(hex: "#C8C8C8") ?? .gray { didSet { self.separatorColor = preferredSeparatorColor } }
-    public var preferredSeparatorStyle:UITableViewCell.SeparatorStyle = .singleLine
+    open var allowSimultaneousGestures:Bool = false
+    open var hiddenSeparators:Bool = false
+    open var preferredSeparatorColor:UIColor = UIColor(hex: "#C8C8C8") ?? .gray { didSet { self.separatorColor = preferredSeparatorColor } }
+    open var preferredSeparatorStyle:UITableViewCell.SeparatorStyle = .singleLine
     
     
     public init(){
