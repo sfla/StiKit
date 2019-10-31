@@ -18,7 +18,7 @@ open class TextCellViewModel:CellViewModel{
     }
 }
 
-public class TextCell:TableViewCell{
+open class TextCell:TableViewCell{
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
