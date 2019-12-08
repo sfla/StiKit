@@ -1,54 +1,33 @@
 import Foundation
 
-
-public protocol ObservableDelegate: class {
-    func observableDidSet<T>(_ observable: Observable<T>)
-    func observableDidAddListener<T>(_ observable: Observable<T>)
-    func observableDidRemoveListener<T>(_ observable: Observable<T>)
-}
-extension ObservableDelegate {
-    func observableDidSet<T>(_ observable: Observable<T>)  { }
-    func observableDidAddListener<T>(_ observable: Observable<T>)  { }
-    func observableDidRemoveListener<T>(_ observable: Observable<T>)  { }
-}
-
-
 public class Observable<T> {
     public typealias Listener = (T) -> Void
 
     private var listeners:[UUID: Listener] = [:]
-    public weak var delegate: ObservableDelegate? = nil
-    public var listenerCount: Int { return listeners.compactMapValues({ $0 }).count }
-
+    private var onlyNextListeners:[UUID: Listener] = [:]
+    
     public var value:T{
         didSet{ //TODO2 print out which thread is being used here, and test entire app, make sure only Main thread is used?
-            delegate?.observableDidSet(self)
             listeners.values.forEach({$0(value)})
+            onlyNextListeners.values.forEach({$0(value)})
+            onlyNextListeners.removeAll()
         }
     }
     public init(_ value:T){
         self.value = value
     }
-
-    /// Receive callback when this variable changes value. Pass `ignoreCurrent:true` if you don't want the inital value immediately trigger this.
-    public func observe(ignoreCurrent:Bool = false, _ listener: @escaping Listener)->Disposable{
+    public func observe(withoutInitialValue:Bool = false, listener: @escaping Listener)->Disposable{
         let identifier = UUID()
-        if self.listeners[identifier] == nil {
-            self.listeners[identifier] = listener
-            self.delegate?.observableDidAddListener(self)
-        }
-        if !ignoreCurrent{
+        self.listeners[identifier] = listener
+        if !withoutInitialValue{
             listener(value)
         }
-        return Disposable {
-            if self.listeners.removeValue(forKey: identifier) != nil {
-                self.delegate?.observableDidRemoveListener(self)
-            }
-        }
+        return Disposable { self.listeners.removeValue(forKey: identifier) }
     }
-
-    public func updated() {
-        listeners.values.forEach({$0(value)})
+    public func observeOnlyNext(listener: @escaping Listener)->Disposable{
+        let identifier = UUID()
+        self.onlyNextListeners[identifier] = listener
+        return Disposable { self.onlyNextListeners.removeValue(forKey: identifier) }
     }
 }
 
