@@ -1,6 +1,6 @@
 import Foundation
 
-extension Date{
+public extension Date{
     
     func timeString() -> String {
         return DateFormatter.localizedString(from: self, dateStyle: DateFormatter.Style.none, timeStyle: DateFormatter.Style.short)
