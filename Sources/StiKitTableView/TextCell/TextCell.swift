@@ -10,7 +10,11 @@ open class TextCellViewModel:CellViewModel{
     public init(text:String?, subtitle:String? = nil, leadingSwipeActions:UISwipeActionsConfiguration? = nil, trailingSwipeActions:UISwipeActionsConfiguration? = nil){
         self.text = Observable(text)
         self.subtitle = Observable(subtitle)
-        self.backgroundColor = Observable(.white)
+        if #available(iOS 13.0, *) {
+            self.backgroundColor = Observable(.systemBackground)
+        } else {
+            self.backgroundColor = Observable(.white)
+        }
         super.init()
         
         self.leadingSwipeActions = leadingSwipeActions

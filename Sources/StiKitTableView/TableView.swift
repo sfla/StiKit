@@ -13,7 +13,7 @@ open class TableView: UITableView {
     
     open var allowSimultaneousGestures:Bool = false
     open var hiddenSeparators:Bool = false
-    open var preferredSeparatorColor:UIColor = UIColor(hex: "#C8C8C8") ?? .gray { didSet { self.separatorColor = preferredSeparatorColor } }
+    open var preferredSeparatorColor:UIColor = .gray { didSet { self.separatorColor = preferredSeparatorColor } }
     open var preferredSeparatorStyle:UITableViewCell.SeparatorStyle = .singleLine
     
     
@@ -26,10 +26,17 @@ open class TableView: UITableView {
         commonInit()
     }
     private func commonInit(){
-        self.backgroundColor = UIColor(hex: "#F5F5F5")
+        
+        if #available(iOS 13.0, *) {
+            self.backgroundColor = .systemBackground
+            preferredSeparatorColor = .separator
+        } else {
+            self.backgroundColor = .white
+            preferredSeparatorColor = .gray
+        }
+        
         self.rowHeight = UITableView.automaticDimension
         self.estimatedRowHeight = 44
-        self.separatorColor = preferredSeparatorColor
         assert(self.style == .grouped)
         self.delegate = self
         self.dataSource = self
