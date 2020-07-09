@@ -28,7 +28,7 @@ open class TableView: UITableView {
     private func commonInit(){
         
         if #available(iOS 13.0, *) {
-            self.backgroundColor = .systemBackground
+            self.backgroundColor = .systemGroupedBackground
             preferredSeparatorColor = .separator
         } else {
             self.backgroundColor = .white
